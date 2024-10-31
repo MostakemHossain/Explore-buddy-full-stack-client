@@ -26,7 +26,7 @@ const RecentPostTravel = () => {
   const fetchTrips = async () => {
     try {
       const res = await fetch(
-        "https://tour-buddy-server.vercel.app/api/trips/all-trips?limit=3"
+        "https://explore-buddy-server.vercel.app/api/trips/all-trips?limit=3"
       );
       const data = await res.json();
       setTrips(data.data);
@@ -42,10 +42,11 @@ const RecentPostTravel = () => {
   }, []);
 
   return (
-    <Box 
-    sx={{ 
-      
-      textAlign: "center" }}>
+    <Box
+      sx={{
+        textAlign: "center",
+      }}
+    >
       <Box sx={{ my: 4 }}>
         <Typography
           variant="h3"
@@ -66,7 +67,7 @@ const RecentPostTravel = () => {
         </Typography>
       </Box>
 
-      <Box >
+      <Box>
         {isLoading ? (
           <Stack spacing={1}>
             <Skeleton variant="rectangular" height={300} />
@@ -74,11 +75,13 @@ const RecentPostTravel = () => {
             <Skeleton animation={false} height={300} />
           </Stack>
         ) : (
-          <Box sx={{
-            marginLeft:{ xs: "0px", sm: "0px", md: "100px" },
-            marginRight:{ xs: "0px", sm: "0px", md: "100px" },
-            padding:"6px"
-          }}>
+          <Box
+            sx={{
+              marginLeft: { xs: "0px", sm: "0px", md: "100px" },
+              marginRight: { xs: "0px", sm: "0px", md: "100px" },
+              padding: "6px",
+            }}
+          >
             <Grid
               container
               spacing={3}
