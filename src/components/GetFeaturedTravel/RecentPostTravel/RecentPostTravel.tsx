@@ -27,6 +27,7 @@ const RecentPostTravel = () => {
     try {
       const res = await fetch(
         "https://explore-buddy-server.vercel.app/api/trips/all-trips?limit=3"
+        // "http://localhost:8000/api/trips/all-trips?limit=3"
       );
       const data = await res.json();
       setTrips(data.data);

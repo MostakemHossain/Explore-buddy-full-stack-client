@@ -1,4 +1,3 @@
-"use client";
 import { useLoginUserMutation } from "@/redux/api/authApi";
 import { storeUserInfo } from "@/services/auth.services";
 import Visibility from "@mui/icons-material/Visibility";
@@ -6,6 +5,7 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import {
   Box,
   Button,
+  CircularProgress,
   Container,
   IconButton,
   InputAdornment,
@@ -21,6 +21,7 @@ import { UserLoginType } from "./page";
 
 export const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [loginUser] = useLoginUserMutation();
   const [error, setError] = useState("");
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -34,12 +35,12 @@ export const LoginForm = () => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<UserLoginType>();
 
-  const onSubmit: SubmitHandler<UserLoginType> = async (
-    values: UserLoginType
-  ) => {
+  const onSubmit: SubmitHandler<UserLoginType> = async (values) => {
+    setLoading(true);
     try {
       const res = await loginUser(values).unwrap();
       if (res.accessToken) {
@@ -55,8 +56,20 @@ export const LoginForm = () => {
         setError(errorMessage);
       }
       toast.error(errorMessage);
-      setError(error.message);
+    } finally {
+      setLoading(false);
     }
+  };
+
+  const handleDemoLogin = async (role: "user" | "admin") => {
+    const demoCredentials = {
+      email: role === "user" ? "user550@gmail.com" : "admin1000@gmail.com",
+      password: "123456",
+    };
+    setValue("email", demoCredentials.email);
+    setValue("password", demoCredentials.password);
+
+    await onSubmit(demoCredentials);
   };
 
   return (
@@ -175,10 +188,31 @@ export const LoginForm = () => {
               fullWidth
               variant="contained"
               sx={{ mt: 1, mb: 2 }}
+              disabled={loading}
             >
-              Sign In
+              {loading ? <CircularProgress size={24} /> : "Sign In"}
             </Button>
-            <Box display="flex" justifyContent="flex-end">
+
+            <Box display="flex" justifyContent="space-between" sx={{ mt: 2 }}>
+              <Button
+                variant="outlined"
+                onClick={() => handleDemoLogin("user")}
+                disabled={loading}
+              >
+                {loading && <CircularProgress size={20} sx={{ mr: 1 }} />}
+                Demo User
+              </Button>
+              <Button
+                variant="outlined"
+                onClick={() => handleDemoLogin("admin")}
+                disabled={loading}
+              >
+                {loading && <CircularProgress size={20} sx={{ mr: 1 }} />}
+                Demo Admin
+              </Button>
+            </Box>
+
+            <Box display="flex" justifyContent="flex-end" sx={{ mt: 2 }}>
               <Box sx={{}}>
                 Don&apos;t have an account?{" "}
                 <Link

@@ -3,6 +3,7 @@ import GetFeaturedTravel from "@/components/GetFeaturedTravel/GetFeaturedTravel"
 import RecentPostTravel from "@/components/GetFeaturedTravel/RecentPostTravel/RecentPostTravel";
 import ImageGallery from "@/components/ImageGallery/ImageGallery";
 import KnowAboutUs from "@/components/KnowAboutUs/KnowAboutUs";
+import OfferCards from "@/components/OfferCards/OfferCards";
 import Banner from "../(withDashboardLayout)/dashboard/user/my-trip/components/Banner/Banner";
 
 const Home = () => {
@@ -10,6 +11,7 @@ const Home = () => {
     <div>
       <Banner />
       <RecentPostTravel />
+      <OfferCards />
       <GetFeaturedTravel />
       <KnowAboutUs />
       <ImageGallery />

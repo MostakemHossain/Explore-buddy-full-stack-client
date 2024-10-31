@@ -39,9 +39,7 @@ const Navbar = () => {
 
   const AuthButton = dynamic(
     () => import("@/components/UI/AuthButton/AuthButton"),
-    {
-      ssr: false,
-    }
+    { ssr: false }
   );
 
   const loggedIn = isLoggedIn();
@@ -100,14 +98,10 @@ const Navbar = () => {
                 anchor="right"
                 open={mobileOpen}
                 onClose={handleDrawerToggle}
-                ModalProps={{
-                  keepMounted: true,
-                }}
+                ModalProps={{ keepMounted: true }}
               >
                 <Box
-                  sx={{
-                    width: 250,
-                  }}
+                  sx={{ width: 250 }}
                   role="presentation"
                   onClick={handleDrawerToggle}
                   onKeyDown={handleDrawerToggle}
@@ -119,16 +113,22 @@ const Navbar = () => {
                         key={link.path}
                         component={Link}
                         href={link.path}
-                      >
-                        <ListItemText
-                          primary={link.title}
-                          primaryTypographyProps={{
-                            color:
+                        sx={{
+                          backgroundColor:
+                            pathname === link.path
+                              ? "primary.light"
+                              : "inherit",
+                          color:
+                            pathname === link.path ? "white" : "text.primary",
+                          "&:hover": {
+                            backgroundColor:
                               pathname === link.path
-                                ? "primary.main"
-                                : "text.primary",
-                          }}
-                        />
+                                ? "primary.light"
+                                : "grey.100",
+                          },
+                        }}
+                      >
+                        <ListItemText primary={link.title} />
                       </ListItem>
                     ))}
                   </List>
@@ -144,8 +144,15 @@ const Navbar = () => {
                   href={link.path}
                   sx={{
                     textDecoration: "none",
-                    color:
-                      pathname === link.path ? "primary.main" : "text.primary",
+                    color: pathname === link.path ? "white" : "text.primary",
+                    backgroundColor:
+                      pathname === link.path ? "#FF5721" : "inherit",
+                    padding: "8px 16px",
+                    borderRadius: "4px",
+                    "&:hover": {
+                      backgroundColor:
+                        pathname === link.path ? "#D32F2F" : "grey.100",
+                    },
                   }}
                 >
                   {link.title}
