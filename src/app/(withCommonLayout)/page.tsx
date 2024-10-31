@@ -4,6 +4,7 @@ import RecentPostTravel from "@/components/GetFeaturedTravel/RecentPostTravel/Re
 import ImageGallery from "@/components/ImageGallery/ImageGallery";
 import KnowAboutUs from "@/components/KnowAboutUs/KnowAboutUs";
 import OfferCards from "@/components/OfferCards/OfferCards";
+import SubscriptionSection from "@/components/Subscription/SubscriptionSection";
 import Banner from "../(withDashboardLayout)/dashboard/user/my-trip/components/Banner/Banner";
 
 const Home = () => {
@@ -15,6 +16,7 @@ const Home = () => {
       <GetFeaturedTravel />
       <KnowAboutUs />
       <ImageGallery />
+      <SubscriptionSection />
       <ContactSection />
     </div>
   );
